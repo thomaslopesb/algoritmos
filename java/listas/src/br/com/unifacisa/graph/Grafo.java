@@ -1,5 +1,6 @@
 package br.com.unifacisa.graph;
 
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,34 +8,27 @@ import java.util.List;
 public class Grafo {
 
 	private int numVertices;
-	private List<List<Integer>> adjacencyList;
+	private int[][] adjacencyMatrix;
 
 	public Grafo(int numVertices) {
 		this.numVertices = numVertices;
-		this.adjacencyList = new ArrayList<>(numVertices);
-
-		for (int i = 0; i < numVertices; i++) {
-			this.adjacencyList.add(new LinkedList<>());
-		}
+		this.adjacencyMatrix = new int[numVertices][numVertices];
 	}
 
 	public void addEdge(int v, int w) {
-		/*
-		 * v = origem
-		 * w = destino
-		 */
-		adjacencyList.get(v).add(w);
-		adjacencyList.get(w).add(v); // Como é um grafo não direcionado, adicionamos a ligação inversa também
+
+		adjacencyMatrix[v][w] = 1;
+		adjacencyMatrix[w][v] = 1;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-
+		sb.append("Matriz de Adjacência:\n");
+		
 		for (int i = 0; i < numVertices; i++) {
-			sb.append("Vértice: ").append(i).append(":\n");
-			for (Integer neighbor : adjacencyList.get(i)) {
-				sb.append(" -> ").append(neighbor).append("\n");
+			for (int j = 0; j < numVertices; j++) {
+				sb.append(adjacencyMatrix[i][j]).append(" ");
 			}
 			sb.append("\n");
 		}
